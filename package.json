@@ -9,7 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.45"
+    "@vee-validate/i18n": "^4.7.3",
+    "@vee-validate/rules": "^4.7.3",
+    "pinia": "^2.0.28",
+    "vee-validate": "^4.7.3",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

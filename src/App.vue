@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div class="text-red-500 text-xl font-black">Hello World</div>
+  <BaseNavbar />
+  <router-view> </router-view>
 </template>
 
-<style scoped></style>
+<script lang="ts">
+import BaseNavbar from "./components/UI/BaseNavbar.vue";
+
+export default { components: { BaseNavbar } };
+</script>
