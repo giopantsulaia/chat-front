@@ -3,7 +3,7 @@
     <label :for="name" class="mt-4 font-black"
       >{{ name.charAt(0).toUpperCase() + name.slice(1).split("_").join(" ") }}
       <span class="text-red-600 text-sm">{{
-        rules.substring(0, 8) === "required" ? "*" : ""
+        rules && rules.substring(0, 8) === "required" ? "*" : ""
       }}</span></label
     >
     <Field
@@ -27,7 +27,7 @@ export default {
     },
     rules: {
       type: String,
-      required: true,
+      required: false,
     },
     placeholder: {
       type: String,

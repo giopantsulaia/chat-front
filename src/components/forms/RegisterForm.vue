@@ -1,6 +1,9 @@
 <template>
   <section class="sm:w-2/3 mx-auto mt-16 p-8 rounded-lg flex shadow-2xl">
-    <div class="mx-auto sm:w-1/2">
+    <div
+      class="mx-auto sm:w-1/2"
+      :class="{ 'blur-[2px] pointer-events-none': loading || registered }"
+    >
       <h1 class="text-3xl font-black mb-10 w-48 mx-auto">Sign Up</h1>
       <Form
         @submit="submitForm"
@@ -26,21 +29,40 @@
         </div>
       </Form>
     </div>
-    <div class="w-1/2 flex-col sm:flex hidden">
+    <div
+      class="w-1/2 flex-col sm:flex hidden"
+      :class="{ 'blur-[2px] pointer-events-none': loading || registered }"
+    >
       <img
         src="src/assets/chat.png"
         alt=""
         class="w-full brightness-110 rounded-3xl"
       />
     </div>
+    <verification-sent
+      v-if="registered"
+      @on-close="closeModal"
+    ></verification-sent>
+    <div
+      class="absolute left-0 right-0 mx-auto mt-48 w-36 flex flex-col items-center"
+      v-if="loading"
+    >
+      <base-loader></base-loader>
+      <p class="text-sm -mt-4 text-blue-700">Please wait...</p>
+    </div>
   </section>
 </template>
 <script lang="ts">
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form } from "vee-validate";
 import InputGroup from "../inputs/InputGroup.vue";
+import axios from "../../config/axios";
+import VerificationSent from "../UI/modals/VerificationSent.vue";
+import BaseLoader from "../UI/BaseLoader.vue";
 export default {
   data() {
     return {
+      registered: false,
+      loading: false,
       options: [
         {
           name: "name",
@@ -69,7 +91,7 @@ export default {
         },
         {
           name: "password_confirmation",
-          rules: "required|confirmed:@password",
+          rules: "confirmed:@password",
           placeholder: "Confirm password",
           type: "password",
         },
@@ -78,14 +100,21 @@ export default {
   },
   methods: {
     submitForm(values: object) {
-      console.log(values);
+      this.loading = true;
+      axios.post("register", values).then(() => {
+        this.loading = false;
+        this.registered = true;
+      });
+    },
+    closeModal() {
+      this.registered = false;
     },
   },
   components: {
     Form,
-    Field,
-    ErrorMessage,
     InputGroup,
+    VerificationSent,
+    BaseLoader,
   },
 };
 </script>
