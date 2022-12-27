@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "X-Requested-With": "XMLHttpRequest",
-    Authorization: "Bearer " + localStorage.getItem("token"),
+    Authorization: "Bearer " + localStorage.getItem("access_token"),
   },
 });
 

@@ -3,7 +3,8 @@ import RegisterForm from "../components/forms/RegisterForm.vue";
 import LoginForm from "../components/forms/LoginForm.vue";
 import NotFound from "../components/UI/NotFound.vue";
 import VerifyEmail from "../pages/VerifyEmail.vue";
-import { redirectIfAuthenticated } from "./guards";
+import MainDashboard from "../pages/MainDashboard.vue";
+import { redirectIfAuthenticated, checkAuthentication } from "./guards";
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 };
@@ -33,9 +34,10 @@ const router = createRouter({
       component: VerifyEmail,
     },
     {
-      path: "/dashboard",
-      name: "dashboard",
+      path: "/",
+      name: "home",
       component: MainDashboard,
+      beforeEnter: [checkAuthentication],
     },
   ],
 });

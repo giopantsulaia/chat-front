@@ -39,7 +39,6 @@
 import { Form } from "vee-validate";
 import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
-import { mapActions } from "pinia";
 import { useAuthStore } from "../../stores/auth.js";
 export default {
   data() {
@@ -60,13 +59,17 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useAuthStore, ["tryLogin"]),
     submitForm(values: object) {
-      axios.post("login", values).then((res) => {
-        localStorage.setItem("access_token", res.data.token);
-        localStorage.setItem("expires_at", res.data.expires_at);
-        this.tryLogin();
-      });
+      axios
+        .post("login", values)
+        .then((res) => {
+          localStorage.setItem("access_token", res.data.token);
+          localStorage.setItem("expires_at", res.data.expires_at);
+        })
+        .finally(() => {
+          const authStore = useAuthStore();
+          authStore.tryLogin();
+        });
     },
   },
   components: {
