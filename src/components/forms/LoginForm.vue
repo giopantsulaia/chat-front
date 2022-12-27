@@ -16,7 +16,7 @@
       >
         <InputGroup :options="options" />
         <div
-          class="mt-16 flex sm:flex-row flex-col items-center w-1/2 mx-auto sm:gap-10 gap-4"
+          class="mt-16 flex xl:flex-row flex-col justify-center items-center mx-auto sm:gap-10 gap-4 w-fit"
         >
           <button
             type="submit"
@@ -39,6 +39,8 @@
 import { Form } from "vee-validate";
 import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
+import { mapActions } from "pinia";
+import { useAuthStore } from "../../stores/auth.js";
 export default {
   data() {
     return {
@@ -58,8 +60,13 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useAuthStore, ["tryLogin"]),
     submitForm(values: object) {
-      axios.post("login", values).then((res) => console.log(res));
+      axios.post("login", values).then((res) => {
+        localStorage.setItem("access_token", res.data.token);
+        localStorage.setItem("expires_at", res.data.expires_at);
+        this.tryLogin();
+      });
     },
   },
   components: {
