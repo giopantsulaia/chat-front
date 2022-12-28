@@ -4,5 +4,4 @@ export interface Options {
   rules?: string;
   placeholder: string;
   error?: string;
-  data_vv_as?: string;
 }

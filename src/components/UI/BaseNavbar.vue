@@ -1,16 +1,20 @@
 <template>
   <nav
-    class="relative top-0 left-0 w-full border-b-2 h-16 items-center flex justify-between"
+    class="absolute top-0 left-0 w-full border-b-2 border-gray-300 h-16 items-center flex justify-between"
   >
-    <h1 class="uppercase text-blue-600 font-medium text-3xl px-4">Chatem</h1>
+    <h1
+      class="uppercase text-blue-600 font-medium text-3xl px-4 cursor-pointer"
+      @click="$router.push({ name: 'home' })"
+    >
+      Chatem
+    </h1>
     <div class="flex" v-if="authenticated">
       <button
-        class="text-2xl font-bold text-blue-600 flex items-center"
+        class="text-2xl font-bold text-blue-600 flex items-center border-4 rounded-full w-10 border-blue-500 justify-center capitalize"
         tabindex="-1"
-        @click="$router.push({ name: 'settings' })"
+        @click="$router.push({ name: 'profile' })"
       >
-        <profile-icon class="text-green-300" />
-        {{ name.charAt(0).toUpperCase() + name.slice(1) }}
+        {{ name.charAt(0) }}
       </button>
       <button
         class="text-red-500 font-semibold mx-10"

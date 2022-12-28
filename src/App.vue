@@ -1,5 +1,5 @@
 <template>
-  <BaseNavbar />
+  <BaseNavbar v-if="$route.name !== 'not-found'" />
   <router-view> </router-view>
 </template>
 
@@ -18,7 +18,6 @@ export default {
 
   created() {
     this.tryLogin();
-    console.log(this.authenticated);
   },
 };
 </script>

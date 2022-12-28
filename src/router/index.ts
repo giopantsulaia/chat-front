@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import RegisterForm from "../components/forms/RegisterForm.vue";
-import LoginForm from "../components/forms/LoginForm.vue";
 import NotFound from "../components/UI/NotFound.vue";
-import VerifyEmail from "../pages/VerifyEmail.vue";
+import LoginForm from "../components/forms/LoginForm.vue";
+import RegisterForm from "../components/forms/RegisterForm.vue";
 import MainDashboard from "../pages/MainDashboard.vue";
-import UserSettings from "../pages/UserSettings.vue";
-import { redirectIfAuthenticated, checkAuthentication } from "./guards";
+import UserProfile from "../pages/UserProfile.vue";
+import VerifyEmail from "../pages/VerifyEmail.vue";
+import { checkAuthentication, redirectIfAuthenticated } from "./guards";
 const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 };
@@ -41,9 +41,9 @@ const router = createRouter({
       beforeEnter: [checkAuthentication],
     },
     {
-      path: "/settings",
-      name: "settings",
-      component: UserSettings,
+      path: "/profile",
+      name: "profile",
+      component: UserProfile,
       beforeEnter: [checkAuthentication],
     },
   ],

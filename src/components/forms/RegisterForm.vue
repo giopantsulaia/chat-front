@@ -5,12 +5,8 @@
       :class="{ 'blur-[2px] pointer-events-none': loading || registered }"
     >
       <h1 class="text-3xl font-black mb-10 w-48 mx-auto">Sign Up</h1>
-      <Form
-        @submit="submitForm"
-        id="form"
-        class="sm:w-10/12 w-full flex flex-col"
-      >
-        <InputGroup :options="options" />
+      <form-layout @on-submit="submitForm">
+        <input-group :options="options" />
         <div
           class="mt-16 flex sm:flex-row flex-col items-center w-1/2 mx-auto sm:gap-10 gap-4"
         >
@@ -27,7 +23,7 @@
             Already have an account
           </p>
         </div>
-      </Form>
+      </form-layout>
     </div>
     <div
       class="w-1/2 flex-col sm:flex hidden"
@@ -53,7 +49,7 @@
   </section>
 </template>
 <script lang="ts">
-import { Form } from "vee-validate";
+import FormLayout from "../layouts/FormLayout.vue";
 import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
 import VerificationSent from "../UI/modals/VerificationSent.vue";
@@ -70,14 +66,12 @@ export default {
           rules: "required|alpha_spaces|min:2|max:16",
           placeholder: "Enter your name",
           type: "text",
-          iconPath: "src/assets/user.svg",
         },
         {
           name: "last_name",
           rules: "required|alpha_spaces|min:2|max:32",
           placeholder: "Enter your last name",
           type: "text",
-          data_vv_as: "Last name",
         },
         {
           name: "email",
@@ -124,7 +118,7 @@ export default {
     },
   },
   components: {
-    Form,
+    FormLayout,
     InputGroup,
     VerificationSent,
     BaseLoader,

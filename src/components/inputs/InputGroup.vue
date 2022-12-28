@@ -6,7 +6,6 @@
     :rules="option.rules"
     :placeholder="option.placeholder"
     :error="option.error"
-    :data_vv_as="option.data_vv_as"
   ></TextInput>
 </template>
 <script lang="ts">

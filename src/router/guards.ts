@@ -9,7 +9,13 @@ export function redirectIfAuthenticated() {
 
 export function checkAuthentication() {
   const store = useAuthStore();
+  const expired =
+    Number(localStorage.getItem("expires_at")) < Math.round(Date.now() / 1000);
+
   if (!store.authenticated) {
     return "/login";
+  }
+  if (expired) {
+    store.logout();
   }
 }

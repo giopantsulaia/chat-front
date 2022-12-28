@@ -9,11 +9,7 @@
     </div>
     <div class="mx-auto sm:w-1/2">
       <h1 class="text-3xl font-black mb-10 w-48 mx-auto">Sign In</h1>
-      <Form
-        @submit="submitForm"
-        id="form"
-        class="sm:w-9/12 w-full flex flex-col mx-auto"
-      >
+      <form-layout @on-submit="submitForm">
         <InputGroup :options="options" />
         <p class="text-red-600 text-sm">{{ error }}</p>
         <div
@@ -32,12 +28,12 @@
             Don't have an account?
           </p>
         </div>
-      </Form>
+      </form-layout>
     </div>
   </section>
 </template>
 <script lang="ts">
-import { Form } from "vee-validate";
+import FormLayout from "../layouts/FormLayout.vue";
 import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
 import { useAuthStore } from "../../stores/auth.js";
@@ -98,7 +94,7 @@ export default {
     });
   },
   components: {
-    Form,
+    FormLayout,
     InputGroup,
   },
 };

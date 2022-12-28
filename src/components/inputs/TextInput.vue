@@ -12,7 +12,6 @@
       :rules="rules"
       class="py-2 outline-none border-b-2 border-gray-400 border-opacity-50 my-1"
       :placeholder="placeholder"
-      :data-vv-as="data_vv_as"
       @input="$emit('update:modelValue', $event.target.value)"
     ></Field>
     <ErrorMessage :name="name" class="text-red-600 text-sm" />
@@ -40,10 +39,6 @@ export default {
       required: true,
     },
     error: {
-      type: String,
-      required: false,
-    },
-    data_vv_as: {
       type: String,
       required: false,
     },
