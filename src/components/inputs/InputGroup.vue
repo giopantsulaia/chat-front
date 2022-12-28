@@ -5,14 +5,17 @@
     :name="option.name"
     :rules="option.rules"
     :placeholder="option.placeholder"
+    :error="option.error"
+    :data_vv_as="option.data_vv_as"
   ></TextInput>
 </template>
 <script lang="ts">
 import TextInput from "./TextInput.vue";
+import { Options } from "../types/options.js";
 export default {
   props: {
     options: {
-      type: Array,
+      type: Array<Options>,
       required: true,
     },
   },

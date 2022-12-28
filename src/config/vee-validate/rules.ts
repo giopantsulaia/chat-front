@@ -6,9 +6,8 @@ import {
   alpha,
   email,
   alpha_num,
+  alpha_spaces,
   confirmed,
-  min_value,
-  max_value,
 } from "@vee-validate/rules";
 
 defineRule("required", required);
@@ -17,4 +16,5 @@ defineRule("min", min);
 defineRule("max", max);
 defineRule("alpha", alpha);
 defineRule("alpha_num", alpha_num);
+defineRule("alpha_spaces", alpha_spaces);
 defineRule("confirmed", confirmed);

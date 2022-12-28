@@ -58,6 +58,7 @@ import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
 import VerificationSent from "../UI/modals/VerificationSent.vue";
 import BaseLoader from "../UI/BaseLoader.vue";
+import { Options } from "../types/options";
 export default {
   data() {
     return {
@@ -66,26 +67,28 @@ export default {
       options: [
         {
           name: "name",
-          rules: "required|alpha_num",
+          rules: "required|alpha_spaces|min:2|max:16",
           placeholder: "Enter your name",
           type: "text",
           iconPath: "src/assets/user.svg",
         },
         {
           name: "last_name",
-          rules: "required",
+          rules: "required|alpha_spaces|min:2|max:32",
           placeholder: "Enter your last name",
           type: "text",
+          data_vv_as: "Last name",
         },
         {
           name: "email",
-          rules: "required",
+          rules: "required|email",
           placeholder: "Enter your email",
           type: "email",
+          error: "",
         },
         {
           name: "password",
-          rules: "required",
+          rules: "required|min:6|max:255",
           placeholder: "Choose password",
           type: "password",
         },
@@ -95,19 +98,29 @@ export default {
           placeholder: "Confirm password",
           type: "password",
         },
-      ] as Array<Object>,
+      ] as Array<Options>,
     };
   },
   methods: {
     submitForm(values: object) {
       this.loading = true;
-      axios.post("register", values).then(() => {
-        this.loading = false;
-        this.registered = true;
-      });
+      axios
+        .post("register", values)
+        .then(() => {
+          this.loading = false;
+          this.registered = true;
+        })
+        .catch((res) => {
+          this.loading = false;
+          if (res.response.status === 422) {
+            this.options[2]["error"] =
+              "Account with this email already exists!";
+          }
+        });
     },
     closeModal() {
       this.registered = false;
+      this.$router.push({ name: "login" });
     },
   },
   components: {

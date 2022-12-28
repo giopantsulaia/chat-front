@@ -7,6 +7,7 @@
       <button
         class="text-2xl font-bold text-blue-600 flex items-center"
         tabindex="-1"
+        @click="$router.push({ name: 'settings' })"
       >
         <profile-icon class="text-green-300" />
         {{ name.charAt(0).toUpperCase() + name.slice(1) }}

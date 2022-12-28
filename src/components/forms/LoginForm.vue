@@ -15,6 +15,7 @@
         class="sm:w-9/12 w-full flex flex-col mx-auto"
       >
         <InputGroup :options="options" />
+        <p class="text-red-600 text-sm">{{ error }}</p>
         <div
           class="mt-16 flex xl:flex-row flex-col justify-center items-center mx-auto sm:gap-10 gap-4 w-fit"
         >
@@ -40,9 +41,11 @@ import { Form } from "vee-validate";
 import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
 import { useAuthStore } from "../../stores/auth.js";
+import { Options } from "../types/options.js";
 export default {
   data() {
     return {
+      error: "",
       options: [
         {
           name: "email",
@@ -55,7 +58,7 @@ export default {
           placeholder: "Enter password...",
           type: "password",
         },
-      ] as Array<Object>,
+      ] as Array<Options>,
     };
   },
   methods: {
@@ -66,11 +69,33 @@ export default {
           localStorage.setItem("access_token", res.data.token);
           localStorage.setItem("expires_at", res.data.expires_at);
         })
+        .catch((e) => {
+          if (e.response.status === 403) {
+            this.error = "Account is not verified";
+          } else {
+            this.error = "Email or password is incorrect.";
+          }
+        })
         .finally(() => {
           const authStore = useAuthStore();
           authStore.tryLogin();
+          this.redirectIfTokenSet();
         });
     },
+    redirectIfTokenSet() {
+      window.dispatchEvent(
+        new CustomEvent("access_token_set", {
+          detail: {
+            storage: localStorage.getItem("access_token"),
+          },
+        })
+      );
+    },
+  },
+  mounted() {
+    window.addEventListener("access_token_set", () => {
+      this.$router.push({ name: "home" });
+    });
   },
   components: {
     Form,

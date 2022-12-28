@@ -11,7 +11,7 @@
   </svg>
 </template>
 
-<script lang>
+<script>
 const CENTER_X = 50;
 const CENTER_Y = 50;
 const RADIUS = 20;

@@ -16,7 +16,6 @@ export const useAuthStore = defineStore("auth", {
       if (validToken) {
         this.getUserData();
         this.authenticated = true;
-        router.push({ name: "home" });
       } else {
         localStorage.clear();
       }
@@ -33,6 +32,10 @@ export const useAuthStore = defineStore("auth", {
           userStore.name = res.data.user.name;
           userStore.last_name = res.data.user.last_name;
           userStore.email = res.data.user.email;
+        })
+        .catch((err) => {
+          this.authenticated = false;
+          localStorage.clear();
         });
     },
     logout() {
