@@ -30,7 +30,7 @@ export const useAuthStore = defineStore("auth", {
         })
         .then((res) => {
           userStore.name = res.data.user.name;
-          userStore.last_name = res.data.user.last_name;
+          userStore.lastName = res.data.user.last_name;
           userStore.email = res.data.user.email;
         })
         .catch((err) => {

@@ -4,4 +4,5 @@ export interface Options {
   rules?: string;
   placeholder: string;
   error?: string;
+  show?: boolean;
 }

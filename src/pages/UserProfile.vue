@@ -7,7 +7,7 @@
         class="w-56 border-2 rounded-full select-none"
       />
       <p class="text-2xl capitalize mt-4 font-semibold">
-        {{ name + " " + last_name }}
+        {{ name + " " + lastName }}
       </p>
       <p class="text-base text-gray-400 font-medium">{{ email }}</p>
       <button
@@ -19,7 +19,8 @@
     </div>
     <section class="w-full mt-16 border-x-2 border-gray-300">
       <div v-if="$route.query.tab === 'settings'" class="w-1/2 mx-auto mt-16">
-        <edit-user-tab></edit-user-tab>
+        <h1 class="text-3xl text-center my-10">Profile Settings</h1>
+        <settings-tab></settings-tab>
       </div>
       <div v-else>profile stuff here</div>
     </section>
@@ -29,10 +30,10 @@
 import axios from "../config/axios/index";
 import { useUserStore } from "../stores/user";
 import { mapState } from "pinia";
-import EditUserTab from "../components/UI/EditUserTab.vue";
+import SettingsTab from "../components/UI/SettingsTab.vue";
 export default {
   computed: {
-    ...mapState(useUserStore, ["name", "last_name", "email"]),
+    ...mapState(useUserStore, ["name", "lastName", "email"]),
     inSettings(): boolean {
       return this.$route.query.tab === "settings";
     },
@@ -52,7 +53,7 @@ export default {
     },
   },
   components: {
-    EditUserTab,
+    SettingsTab,
   },
 };
 </script>

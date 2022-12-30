@@ -6,7 +6,7 @@
       class="uppercase text-blue-600 font-medium text-3xl px-4 cursor-pointer"
       @click="$router.push({ name: 'home' })"
     >
-      Chatem
+      Title
     </h1>
     <div class="flex" v-if="authenticated">
       <button
@@ -33,7 +33,7 @@ import { useAuthStore } from "../../stores/auth.js";
 import ProfileIcon from "../icons/ProfileIcon.vue";
 export default {
   computed: {
-    ...mapState(useUserStore, ["name", "last_name"]),
+    ...mapState(useUserStore, ["name", "lastName"]),
     ...mapState(useAuthStore, ["authenticated"]),
   },
   components: {
