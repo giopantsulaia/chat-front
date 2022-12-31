@@ -1,7 +1,7 @@
 <template>
-  <div class="flex">
+  <div class="flex items-center w-80">
     <slot></slot>
-    <button class="-mb-10 p-2" type="button">
+    <button class="-mb-10 p-2 h-fit" type="button" tabindex="-1">
       <edit-icon class="active:opacity-50" @click="$emit('onEditClick')" />
     </button>
   </div>

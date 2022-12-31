@@ -1,26 +1,9 @@
 <template>
-  <form-layout @on-submit="submitUpdate">
-    <div class="flex flex-col">
-      <input-layout @on-edit-click="edit('first_name')">
-        <text-input
-          name="first_name"
-          rules="alpha_spaces|min:2|max:16"
-          :placeholder="first_name"
-          :disabled="show.includes('first_name')"
-          @input="isEditting = true"
-        />
-      </input-layout>
-      <input-layout @on-edit-click="edit('last_name')">
-        <text-input
-          name="last_name"
-          rules="alpha_spaces|min:2|max:32"
-          :placeholder="last_name"
-          :disabled="show.includes('last_name')"
-          @input="isEditting = true"
-        />
-      </input-layout>
+  <div class="w-full">
+    <h1 class="text-xl mx-auto w-48">Contact Information</h1>
+    <div class="flex gap-24">
       <input-layout @on-edit-click="edit('email')">
-        <text-input
+        <base-input
           name="email"
           rules="email"
           error=""
@@ -29,29 +12,42 @@
           @input="isEditting = true"
         />
       </input-layout>
+      <input-layout @on-edit-click="edit('phone')">
+        <base-input
+          name="phone"
+          rules="numeric"
+          :placeholder="phone"
+          :disabled="show.includes('phone')"
+          @input="isEditting = true"
+        />
+      </input-layout>
     </div>
-    <button class="mt-16 bg-blue-400" v-if="isEditting">Save</button>
-  </form-layout>
+    <button
+      class="mt-16 bg-blue-400 w-32 py-2 rounded-lg border border-black"
+      v-if="isEditting"
+    >
+      Save
+    </button>
+  </div>
 </template>
 <script lang="ts">
 import FormLayout from "../layouts/FormLayout.vue";
-import TextInput from "../inputs/TextInput.vue";
+import BaseInput from "../inputs/BaseInput.vue";
 import { useUserStore } from "../../stores/user";
 import SaveIcon from "../icons/SaveIcon.vue";
 import InputLayout from "../layouts/InputLayout.vue";
 export default {
   components: {
     FormLayout,
-    TextInput,
+    BaseInput,
     InputLayout,
     SaveIcon,
   },
   data() {
     return {
-      first_name: "" as string,
-      last_name: "" as string,
       email: "" as string,
-      show: ["first_name", "last_name", "email"],
+      phone: "" as string,
+      show: ["email", "phone"],
       isEditting: false,
     };
   },
@@ -59,10 +55,8 @@ export default {
   mounted() {
     setTimeout(() => {
       const userStore = useUserStore();
-      this.first_name = userStore.name;
-      this.last_name = userStore.lastName;
+      this.phone = userStore.phone;
       this.email = userStore.email;
-      console.log(this.first_name);
     }, 200);
   },
   methods: {

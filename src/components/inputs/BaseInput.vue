@@ -1,17 +1,17 @@
 <template>
   <div class="flex flex-col w-full">
-    <label :for="name" class="mt-4 font-black"
+    <label :for="name" class="mt-4 font-medium"
       >{{ name.charAt(0).toUpperCase() + name.slice(1).split("_").join(" ") }}
       <span class="text-red-600 text-sm">{{
         rules && rules.substring(0, 8) === "required" ? "*" : ""
       }}</span></label
     >
     <Field
+      :id="name"
       :type="type"
       :name="name"
       :rules="rules"
-      class="outline-none border-b-2 border-gray-400 border-opacity-50 my-1 bg-inherit rounded p-2"
-      :class="{ 'bg-gray-200 hover:bg-gray-300': disabled }"
+      class="outline-none border-b-2 border-gray-400 border-opacity-50 my-1 bg-white rounded p-2"
       :placeholder="placeholder"
       :disabled="disabled"
       @input="$emit('update:modelValue', $event.target.value)"
