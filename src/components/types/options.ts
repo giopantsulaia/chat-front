@@ -1,8 +1,8 @@
 export interface Options {
-  type: string;
+  type?: string;
   name: string;
   rules?: string;
-  placeholder: string;
+  placeholder?: string;
   error?: string;
-  show?: boolean;
+  disabled?: boolean;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col w-full">
     <label :for="name" class="mt-4 font-black"
       >{{ name.charAt(0).toUpperCase() + name.slice(1).split("_").join(" ") }}
       <span class="text-red-600 text-sm">{{
@@ -10,8 +10,10 @@
       :type="type"
       :name="name"
       :rules="rules"
-      class="py-2 outline-none border-b-2 border-gray-400 border-opacity-50 my-1"
+      class="outline-none border-b-2 border-gray-400 border-opacity-50 my-1 bg-inherit rounded p-2"
+      :class="{ 'bg-gray-200 hover:bg-gray-300': disabled }"
       :placeholder="placeholder"
+      :disabled="disabled"
       @input="$emit('update:modelValue', $event.target.value)"
     ></Field>
     <ErrorMessage :name="name" class="text-red-600 text-sm" />
@@ -32,14 +34,18 @@ export default {
     },
     placeholder: {
       type: String,
-      required: true,
+      required: false,
     },
     type: {
       type: String,
-      required: true,
+      required: false,
     },
     error: {
       type: String,
+      required: false,
+    },
+    disabled: {
+      type: Boolean,
       required: false,
     },
   },
@@ -59,5 +65,8 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+::placeholder {
+  color: black;
 }
 </style>

@@ -1,102 +1,84 @@
 <template>
   <form-layout @on-submit="submitUpdate">
-    <div v-for="(option, index) in options" class="flex flex-col relative">
-      <div
-        class="w-full border-2 rounded-lg h-16 flex items-center justify-between relative my-4 cursor-pointer hover:bg-gray-100"
-        @click="editColumn(index)"
-        v-if="option.show === false"
-      >
-        <p class="capitalize w-1/3 mx-2 text-gray-500">
-          {{ option.name.split("_").join(" ") }} :
-        </p>
-        <div class="w-1/3">
-          <p class="">
-            {{ option.placeholder }}
-          </p>
-        </div>
-        <edit-icon class="mx-6" />
-      </div>
-      <text-input
-        :type="option.type"
-        :name="option.name"
-        :rules="option.rules"
-        :placeholder="option.placeholder"
-        :error="option.error"
-        v-if="option.show"
-      />
-      <button
-        class="mt-4 mx-auto absolute right-0 bottom-1 p-2"
-        @click="submitUpdate(index)"
-        v-if="option.show === true"
-      >
-        <save-icon />
-      </button>
+    <div class="flex flex-col">
+      <input-layout @on-edit-click="edit('first_name')">
+        <text-input
+          name="first_name"
+          rules="alpha_spaces|min:2|max:16"
+          :placeholder="first_name"
+          :disabled="show.includes('first_name')"
+          @input="isEditting = true"
+        />
+      </input-layout>
+      <input-layout @on-edit-click="edit('last_name')">
+        <text-input
+          name="last_name"
+          rules="alpha_spaces|min:2|max:32"
+          :placeholder="last_name"
+          :disabled="show.includes('last_name')"
+          @input="isEditting = true"
+        />
+      </input-layout>
+      <input-layout @on-edit-click="edit('email')">
+        <text-input
+          name="email"
+          rules="email"
+          error=""
+          :placeholder="email"
+          :disabled="show.includes('email')"
+          @input="isEditting = true"
+        />
+      </input-layout>
     </div>
+    <button class="mt-16 bg-blue-400" v-if="isEditting">Save</button>
   </form-layout>
 </template>
 <script lang="ts">
 import FormLayout from "../layouts/FormLayout.vue";
 import TextInput from "../inputs/TextInput.vue";
-import { mapState } from "pinia";
 import { useUserStore } from "../../stores/user";
-import { Options } from "../types/options";
-import { useAuthStore } from "../../stores/auth";
-import EditIcon from "../icons/EditIcon.vue";
 import SaveIcon from "../icons/SaveIcon.vue";
+import InputLayout from "../layouts/InputLayout.vue";
 export default {
   components: {
     FormLayout,
     TextInput,
-    EditIcon,
+    InputLayout,
     SaveIcon,
   },
   data() {
     return {
-      options: [
-        {
-          name: "name",
-          rules: "alpha_spaces|min:2|max:16",
-          type: "text",
-          show: false,
-        },
-        {
-          name: "last_name",
-          rules: "alpha_spaces|min:2|max:32",
-          type: "text",
-          show: false,
-        },
-        {
-          name: "email",
-          rules: "email",
-          type: "email",
-          error: "",
-          show: false,
-        },
-        // {
-        //   name: "phone_number",
-        //   rules: "",
-        //   type: "number",
-        //   show: false,
-        // },
-      ] as Array<Options>,
+      first_name: "" as string,
+      last_name: "" as string,
+      email: "" as string,
+      show: ["first_name", "last_name", "email"],
+      isEditting: false,
     };
   },
 
   mounted() {
     setTimeout(() => {
       const userStore = useUserStore();
-      this.options[0]["placeholder"] = userStore.name;
-      this.options[1]["placeholder"] = userStore.lastName;
-      this.options[2]["placeholder"] = userStore.email;
+      this.first_name = userStore.name;
+      this.last_name = userStore.lastName;
+      this.email = userStore.email;
+      console.log(this.first_name);
     }, 200);
   },
   methods: {
-    submitUpdate(index: number, values: object) {
+    async submitUpdate(values: object) {
+      // await axios.post("/update-user", values).then();
       console.log(values);
-      this.options[index]["show"] = false;
     },
-    editColumn(index: number) {
-      this.options[index]["show"] = true;
+
+    edit(name: string) {
+      if (this.show.includes(name)) {
+        this.show = this.show.filter(function (e) {
+          return e !== name;
+        });
+      } else {
+        this.show.push(name);
+      }
     },
   },
 };

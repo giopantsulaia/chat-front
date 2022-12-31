@@ -13,7 +13,7 @@ configure({
       },
       names: {
         last_name: "Last name",
-        name: "Name",
+        first_name: "Name",
         email: "Email",
         password: "Password",
       },
