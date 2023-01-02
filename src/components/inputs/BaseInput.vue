@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col w-full">
-    <label :for="name" class="mt-4 font-medium"
+    <label :for="name" class="mt-4 font-medium" v-if="label"
       >{{ name.charAt(0).toUpperCase() + name.slice(1).split("_").join(" ") }}
       <span class="text-red-600 text-sm">{{
         rules && rules.substring(0, 8) === "required" ? "*" : ""
@@ -11,7 +11,8 @@
       :type="type"
       :name="name"
       :rules="rules"
-      class="outline-none border-b-2 border-gray-400 border-opacity-50 my-1 bg-white rounded p-2"
+      class="outline-none border-b-2 border-gray-400 border-opacity-50 my-1 bg-white rounded p-3"
+      :class="{ 'mt-6': !label }"
       :placeholder="placeholder"
       :disabled="disabled"
       @input="$emit('update:modelValue', $event.target.value)"
@@ -48,6 +49,10 @@ export default {
       type: Boolean,
       required: false,
     },
+    label: {
+      type: Boolean,
+      required: false,
+    },
   },
 
   components: {
@@ -66,7 +71,34 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-::placeholder {
+input::-webkit-input-placeholder {
+  color: #999;
+}
+input:focus::-webkit-input-placeholder {
+  color: black;
+}
+
+/* Firefox < 19 */
+input:-moz-placeholder {
+  color: #999;
+}
+input:focus:-moz-placeholder {
+  color: black;
+}
+
+/* Firefox > 19 */
+input::-moz-placeholder {
+  color: #999;
+}
+input:focus::-moz-placeholder {
+  color: black;
+}
+
+/* Internet Explorer 10 */
+input:-ms-input-placeholder {
+  color: #999;
+}
+input:focus:-ms-input-placeholder {
   color: black;
 }
 </style>

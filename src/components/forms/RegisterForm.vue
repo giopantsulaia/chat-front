@@ -38,6 +38,7 @@
     <verification-sent
       v-if="registered"
       @on-close="closeModal"
+      message="Your account has been created"
     ></verification-sent>
     <div
       class="absolute left-0 right-0 mx-auto mt-48 w-36 flex flex-col items-center"
@@ -54,7 +55,7 @@ import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
 import VerificationSent from "../UI/modals/VerificationSent.vue";
 import BaseLoader from "../UI/BaseLoader.vue";
-import { Options } from "../types/options";
+import { Options } from "../../types/options";
 export default {
   data() {
     return {
@@ -62,7 +63,7 @@ export default {
       loading: false,
       options: [
         {
-          name: "name",
+          name: "first_name",
           rules: "required|alpha_spaces|min:2|max:16",
           placeholder: "Enter your name",
           type: "text",
@@ -76,7 +77,7 @@ export default {
         {
           name: "email",
           rules: "required|email",
-          placeholder: "Enter your email",
+          placeholder: "Email",
           type: "email",
           error: "",
         },
@@ -104,9 +105,9 @@ export default {
           this.loading = false;
           this.registered = true;
         })
-        .catch((res) => {
+        .catch((err) => {
           this.loading = false;
-          if (res.response.status === 422) {
+          if (err.response.errors.email) {
             this.options[2]["error"] =
               "Account with this email already exists!";
           }

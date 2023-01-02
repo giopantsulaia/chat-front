@@ -14,7 +14,7 @@
         tabindex="-1"
         @click="$router.push({ name: 'profile' })"
       >
-        {{ name.charAt(0) }}
+        {{ firstName.charAt(0) }}
       </button>
       <button
         class="text-red-500 font-semibold mx-10"
@@ -33,7 +33,7 @@ import { useAuthStore } from "../../stores/auth.js";
 import ProfileIcon from "../icons/ProfileIcon.vue";
 export default {
   computed: {
-    ...mapState(useUserStore, ["name", "lastName"]),
+    ...mapState(useUserStore, ["firstName", "lastName"]),
     ...mapState(useAuthStore, ["authenticated"]),
   },
   components: {

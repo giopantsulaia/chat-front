@@ -37,7 +37,7 @@ import FormLayout from "../layouts/FormLayout.vue";
 import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
 import { useAuthStore } from "../../stores/auth.js";
-import { Options } from "../types/options.js";
+import { Options } from "../../types/options.js";
 export default {
   data() {
     return {
@@ -46,12 +46,12 @@ export default {
         {
           name: "email",
           rules: "email",
-          placeholder: "Enter your email...",
+          placeholder: "Email",
           type: "email",
         },
         {
           name: "password",
-          placeholder: "Enter password...",
+          placeholder: "Password",
           type: "password",
         },
       ] as Array<Options>,

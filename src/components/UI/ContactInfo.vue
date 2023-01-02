@@ -9,25 +9,18 @@
           error=""
           :placeholder="email"
           :disabled="show.includes('email')"
-          @input="isEditting = true"
         />
       </input-layout>
       <input-layout @on-edit-click="edit('phone')">
         <base-input
+          type="number"
           name="phone"
           rules="numeric"
           :placeholder="phone"
           :disabled="show.includes('phone')"
-          @input="isEditting = true"
         />
       </input-layout>
     </div>
-    <button
-      class="mt-16 bg-blue-400 w-32 py-2 rounded-lg border border-black"
-      v-if="isEditting"
-    >
-      Save
-    </button>
   </div>
 </template>
 <script lang="ts">
@@ -36,6 +29,7 @@ import BaseInput from "../inputs/BaseInput.vue";
 import { useUserStore } from "../../stores/user";
 import SaveIcon from "../icons/SaveIcon.vue";
 import InputLayout from "../layouts/InputLayout.vue";
+import { mapState } from "pinia";
 export default {
   components: {
     FormLayout,
@@ -45,26 +39,14 @@ export default {
   },
   data() {
     return {
-      email: "" as string,
-      phone: "" as string,
       show: ["email", "phone"],
-      isEditting: false,
     };
   },
 
-  mounted() {
-    setTimeout(() => {
-      const userStore = useUserStore();
-      this.phone = userStore.phone;
-      this.email = userStore.email;
-    }, 200);
+  computed: {
+    ...mapState(useUserStore, ["email", "phone"]),
   },
   methods: {
-    async submitUpdate(values: object) {
-      // await axios.post("/update-user", values).then();
-      console.log(values);
-    },
-
     edit(name: string) {
       if (this.show.includes(name)) {
         this.show = this.show.filter(function (e) {

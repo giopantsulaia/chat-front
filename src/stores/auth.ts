@@ -29,9 +29,13 @@ export const useAuthStore = defineStore("auth", {
           },
         })
         .then((res) => {
-          userStore.name = res.data.user.name;
+          userStore.firstName = res.data.user.first_name;
           userStore.lastName = res.data.user.last_name;
           userStore.email = res.data.user.email;
+          userStore.birthDate = res.data.user.birth_date;
+          userStore.phone = res.data.user.phone;
+          userStore.gender = res.data.user.gender;
+          userStore.about = res.data.user.about;
         })
         .catch((err) => {
           this.authenticated = false;

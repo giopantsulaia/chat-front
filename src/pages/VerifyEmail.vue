@@ -12,8 +12,8 @@ export default {
         .post("verify-email", {
           hash: this.$route.query.hash,
         })
-        .then(() => this.$router.replace({ name: "registration" }))
-        .catch((error) => this.$router.replace({ name: "registration" }));
+        .then(() => this.$router.replace({ name: "login" }))
+        .catch((error) => this.$router.replace({ name: "login" }));
     }
   },
 };

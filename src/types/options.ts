@@ -5,4 +5,5 @@ export interface Options {
   placeholder?: string;
   error?: string;
   disabled?: boolean;
+  label?: boolean;
 }
