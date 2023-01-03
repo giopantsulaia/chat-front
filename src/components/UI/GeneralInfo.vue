@@ -2,7 +2,7 @@
   <div class="w-full">
     <h1 class="text-xl mx-auto w-48">General Information</h1>
 
-    <div class="flex flex-wrap gap-x-24 items-center">
+    <div class="flex flex-wrap gap-x-40 px-8 items-center">
       <input-layout @on-edit-click="handleEdit('first_name')">
         <base-input
           name="first_name"
@@ -54,17 +54,6 @@
           <option value="other">Other</option>
         </Field>
       </div>
-      <label for="about" class="mt-10 font-medium">About me</label>
-      <Field
-        :placeholder="about"
-        as="textarea"
-        name="about"
-        id="about"
-        maxlength="420"
-        rows="5"
-        class="resize-none w-11/12 outline-none rounded border-2"
-      >
-      </Field>
     </div>
   </div>
 </template>
@@ -91,13 +80,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(useUserStore, [
-      "firstName",
-      "lastName",
-      "birthDate",
-      "about",
-      "gender",
-    ]),
+    ...mapState(useUserStore, ["firstName", "lastName", "birthDate", "gender"]),
     today() {
       let date = new Date();
       date.toISOString().split("T")[0];

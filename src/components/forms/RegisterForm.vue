@@ -35,11 +35,12 @@
         class="w-full brightness-110 rounded-3xl"
       />
     </div>
-    <verification-sent
+    <success-modal
       v-if="registered"
       @on-close="closeModal"
-      message="Your account has been created"
-    ></verification-sent>
+      header-message="Your account has been created"
+      message="Verification link has been sent to your email, please follow instructions to proceed."
+    ></success-modal>
     <div
       class="absolute left-0 right-0 mx-auto mt-48 w-36 flex flex-col items-center"
       v-if="loading"
@@ -53,7 +54,7 @@
 import FormLayout from "../layouts/FormLayout.vue";
 import InputGroup from "../inputs/InputGroup.vue";
 import axios from "../../config/axios";
-import VerificationSent from "../UI/modals/VerificationSent.vue";
+import SuccessModal from "../UI/modals/SuccessModal.vue";
 import BaseLoader from "../UI/BaseLoader.vue";
 import { Options } from "../../types/options";
 export default {
@@ -121,7 +122,7 @@ export default {
   components: {
     FormLayout,
     InputGroup,
-    VerificationSent,
+    SuccessModal,
     BaseLoader,
   },
 };

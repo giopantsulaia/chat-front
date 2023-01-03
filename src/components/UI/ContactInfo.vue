@@ -1,15 +1,19 @@
 <template>
   <div class="w-full">
     <h1 class="text-xl mx-auto w-48">Contact Information</h1>
-    <div class="flex gap-24">
-      <input-layout @on-edit-click="edit('email')">
+    <div class="flex gap-x-40 px-8">
+      <input-layout @on-edit-click="edit('email')" class="relative">
         <base-input
           name="email"
           rules="email"
           error=""
           :placeholder="email"
           :disabled="show.includes('email')"
+          :label="true"
         />
+        <p v-if="emailExists" class="absolute -bottom-6 text-sm text-red-500">
+          Email already used
+        </p>
       </input-layout>
       <input-layout @on-edit-click="edit('phone')">
         <base-input
@@ -18,6 +22,7 @@
           rules="numeric"
           :placeholder="phone"
           :disabled="show.includes('phone')"
+          :label="true"
         />
       </input-layout>
     </div>
@@ -55,6 +60,12 @@ export default {
       } else {
         this.show.push(name);
       }
+    },
+  },
+  props: {
+    emailExists: {
+      type: Boolean,
+      required: false,
     },
   },
 };

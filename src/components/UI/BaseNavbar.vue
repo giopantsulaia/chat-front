@@ -1,23 +1,29 @@
 <template>
   <nav
-    class="absolute top-0 left-0 w-full border-b-2 border-gray-300 h-16 items-center flex justify-between"
+    class="absolute top-0 left-0 w-full border-b-2 border-gray-300 h-16 items-center flex justify-between bg-[#24252a]"
   >
     <h1
-      class="uppercase text-blue-600 font-medium text-3xl px-4 cursor-pointer"
+      class="uppercase text-white font-medium text-3xl px-4 cursor-pointer"
       @click="$router.push({ name: 'home' })"
     >
-      Title
+      Logo
     </h1>
-    <div class="flex" v-if="authenticated">
+    <div class="flex items-center text-white" v-if="authenticated">
       <button
-        class="text-2xl font-bold text-blue-600 flex items-center border-4 rounded-full w-10 border-blue-500 justify-center capitalize"
+        class="font-bold flex items-center justify-center capitalize px-8 hover:bg-[#0288a5] h-10 rounded-2xl"
         tabindex="-1"
         @click="$router.push({ name: 'profile' })"
       >
-        {{ firstName.charAt(0) }}
+        Profile
       </button>
       <button
-        class="text-red-500 font-semibold mx-10"
+        class="font-bold flex items-center justify-center capitalize px-8 hover:bg-[#0288a5] h-10 rounded-2xl"
+        tabindex="-1"
+      >
+        Contact
+      </button>
+      <button
+        class="text-red-600 font-semibold px-4 h-16 text-center hover:bg-slate-200 ml-16"
         tabindex="-1"
         @click="logout"
       >

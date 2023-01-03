@@ -8,7 +8,6 @@ export const useUserStore = defineStore("user", {
     phone: "" as string,
     birthDate: "" as string,
     gender: "" as string,
-    about: "" as string,
   }),
   actions: {},
 });

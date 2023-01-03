@@ -5,5 +5,4 @@ export interface User {
   phone?: string;
   birth_date?: string;
   gender?: string;
-  about?: string;
 }
