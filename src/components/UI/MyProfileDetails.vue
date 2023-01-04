@@ -12,18 +12,12 @@
         {{ firstName + " " + lastName }}
       </p>
       <p class="text-base text-gray-400 font-medium">{{ email }}</p>
-      <div class="flex gap-4">
-        <button
-          class="bg-green-600 w-28 h-10 mt-4 rounded-md font-bold text-white border"
-        >
-          Add Friend
-        </button>
-        <button
-          class="bg-blue-600 w-28 h-10 mt-4 rounded-md font-bold text-white border"
-        >
-          Message
-        </button>
-      </div>
+      <button
+        class="bg-green-600 w-28 h-10 mt-4 rounded-md font-bold text-white border"
+        @click="$router.push({ name: 'profile', query: { tab: 'settings' } })"
+      >
+        Edit Profile
+      </button>
     </div>
     <ul class="h-2/5 shadow-xl border bg-white text-gray-500">
       <li class="p-4 border-b flex justify-between">
@@ -65,33 +59,18 @@
   </div>
 </template>
 <script lang="ts">
-import axios from "../../config/axios/index";
+import { mapState } from "pinia";
+import { useUserStore } from "../../stores/user";
 export default {
-  data() {
-    return {
-      firstName: "" as string,
-      lastName: "" as string,
-      email: "" as string,
-      gender: "" as string,
-      birthDate: "" as string,
-      phone: "" as string,
-    };
-  },
-  props: {
-    id: {
-      type: Number,
-      required: true,
-    },
-  },
-  beforeMount() {
-    axios.get(`users/${this.id}`).then((res) => {
-      this.firstName = res.data.user.first_name;
-      this.lastName = res.data.user.last_name;
-      this.email = res.data.user.email;
-      this.phone = res.data.user.phone;
-      this.birthDate = res.data.user.birth_date;
-      this.gender = res.data.user.gender;
-    });
+  computed: {
+    ...mapState(useUserStore, [
+      "firstName",
+      "lastName",
+      "email",
+      "birthDate",
+      "gender",
+      "phone",
+    ]),
   },
 };
 </script>

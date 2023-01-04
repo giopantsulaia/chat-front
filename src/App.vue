@@ -7,6 +7,7 @@
 import { mapActions, mapState } from "pinia";
 import BaseNavbar from "./components/UI/BaseNavbar.vue";
 import { useAuthStore } from "./stores/auth";
+import axios from "./config/axios/index";
 export default {
   components: { BaseNavbar },
   computed: {
@@ -15,7 +16,16 @@ export default {
   methods: {
     ...mapActions(useAuthStore, ["tryLogin"]),
   },
-
+  watch: {
+    authenticated() {
+      const store = useAuthStore();
+      if (store.authenticated) {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${localStorage.getItem("access_token")}`;
+      }
+    },
+  },
   created() {
     this.tryLogin();
   },
