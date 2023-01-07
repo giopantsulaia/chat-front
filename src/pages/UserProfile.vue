@@ -6,7 +6,6 @@
   </main>
 </template>
 <script lang="ts">
-import axios from "../config/axios/index";
 import GeneralInfo from "../components/UI/GeneralInfo.vue";
 import ContactInfo from "../components/UI/ContactInfo.vue";
 import BaseInput from "../components/inputs/BaseInput.vue";
@@ -20,10 +19,6 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    console.log(this.id);
-  },
-  data() {},
   components: {
     GeneralInfo,
     ContactInfo,

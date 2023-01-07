@@ -1,6 +1,8 @@
 <template>
   <div class="w-full">
-    <h1 class="text-xl mx-auto w-48">Contact Information</h1>
+    <h1 class="text-xl mx-auto w-1/3 border-b text-center">
+      Contact Information
+    </h1>
     <div class="flex gap-x-40 px-8">
       <input-layout @on-edit-click="edit('email')" class="relative">
         <base-input

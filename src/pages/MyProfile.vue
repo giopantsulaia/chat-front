@@ -38,7 +38,7 @@
           </div>
           <div class="flex flex-col items-center mt-16 gap-4">
             <button
-              class="border-2 rounded-lg w-24 p-2 bg-blue-300 text-white mx-auto"
+              class="rounded-lg w-24 p-2 bg-[#28292e] text-white mx-auto active:bg-gray-600"
             >
               Save
             </button>

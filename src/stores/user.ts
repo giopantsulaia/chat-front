@@ -8,7 +8,7 @@ export const useUserStore = defineStore("user", {
     phone: "" as string,
     birthDate: "" as string,
     gender: "" as string,
-    id: 0 as number,
+    auth_id: 0 as number,
   }),
   actions: {},
 });

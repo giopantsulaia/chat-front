@@ -1,7 +1,7 @@
 <template>
   <div
-    class="w-48 h-48 rounded-xl text-center cursor-pointer hover:brightness-110"
-    @click="$router.push({ name: 'user-profile', params: { id: id } })"
+    class="w-48 h-48 rounded-xl text-center cursor-pointer hover:brightness-110 border shadow-md"
+    @click="openUserProfile"
   >
     <img
       src="https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
@@ -12,7 +12,13 @@
   </div>
 </template>
 <script lang="ts">
+import { useUserStore } from "../../../stores/user";
+import { mapState } from "pinia";
+
 export default {
+  computed: {
+    ...mapState(useUserStore, ["auth_id"]),
+  },
   props: {
     id: {
       type: Number,
@@ -29,6 +35,15 @@ export default {
     avatar: {
       type: String,
       required: false,
+    },
+  },
+  methods: {
+    openUserProfile() {
+      if (this.auth_id !== this.id) {
+        this.$router.push({ name: "user-profile", params: { id: this.id } });
+      } else {
+        this.$router.push({ name: "profile" });
+      }
     },
   },
 };

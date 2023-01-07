@@ -10,7 +10,7 @@
               name="search"
               v-model="searchKeyword"
               rules="required|min:2"
-              class="border-2 border-blue-400 rounded-lg p-2 outline-none"
+              class="border-2 border-[#24252a] rounded-lg p-2 outline-none"
             />
             <input type="submit" hidden />
             <button class="px-4 text-2xl">GO</button>

@@ -1,6 +1,8 @@
 <template>
   <div class="w-full">
-    <h1 class="text-xl mx-auto w-48">General Information</h1>
+    <h1 class="text-xl mx-auto w-1/3 border-b text-center">
+      General Information
+    </h1>
 
     <div class="flex flex-wrap gap-x-40 px-8 items-center">
       <input-layout @on-edit-click="handleEdit('first_name')">

@@ -107,10 +107,10 @@ export default {
           this.registered = true;
         })
         .catch((err) => {
+          const emailError = err.response.data.errors.email;
           this.loading = false;
-          if (err.response.errors.email) {
-            this.options[2]["error"] =
-              "Account with this email already exists!";
+          if (emailError) {
+            this.options[2]["error"] = emailError[0];
           }
         });
     },

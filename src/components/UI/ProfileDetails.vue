@@ -15,8 +15,15 @@
       <div class="flex gap-4">
         <button
           class="bg-green-600 w-28 h-10 mt-4 rounded-md font-bold text-white border"
+          @click="addFriend"
         >
-          Add Friend
+          {{
+            friendship === true
+              ? "Friends"
+              : friendship === "pending"
+              ? "Pending"
+              : "Add Friend"
+          }}
         </button>
         <button
           class="bg-blue-600 w-28 h-10 mt-4 rounded-md font-bold text-white border"
@@ -67,6 +74,7 @@
 <script lang="ts">
 import axios from "../../config/axios/index";
 export default {
+  emits: ["onAddFriend"],
   data() {
     return {
       firstName: "" as string,
@@ -75,7 +83,16 @@ export default {
       gender: "" as string,
       birthDate: "" as string,
       phone: "" as string,
+      friendship: "" as string | boolean,
     };
+  },
+  methods: {
+    addFriend() {
+      axios.post("/friend-request", { friend_id: this.id }).then((res) => {
+        console.log(res.data);
+        this.friendship = "pending";
+      });
+    },
   },
   props: {
     id: {
@@ -91,6 +108,7 @@ export default {
       this.phone = res.data.user.phone;
       this.birthDate = res.data.user.birth_date;
       this.gender = res.data.user.gender;
+      this.friendship = res.data.friend;
     });
   },
 };
