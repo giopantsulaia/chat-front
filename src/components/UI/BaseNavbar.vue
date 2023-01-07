@@ -22,6 +22,11 @@
       >
         Contact
       </button>
+      <p class="font-black pl-8 text-lg cursor-default">
+        {{ firstName.charAt(0).toUpperCase() }}
+        <span class="font-thin">|</span>
+        {{ lastName.charAt(0).toUpperCase() }}
+      </p>
       <button
         class="text-red-600 font-semibold px-4 h-16 text-center hover:bg-slate-200 ml-16"
         tabindex="-1"
