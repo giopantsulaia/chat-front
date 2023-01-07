@@ -9,22 +9,34 @@
         class="w-56 border-2 rounded-full select-none"
       />
       <p class="text-2xl capitalize mt-4 font-semibold">
-        {{ firstName + " " + lastName }}
+        {{ user.first_name + " " + user.last_name }}
       </p>
-      <p class="text-base text-gray-400 font-medium">{{ email }}</p>
+      <p class="text-base text-gray-400 font-medium">{{ user.email }}</p>
       <div class="flex gap-4">
-        <button
-          class="bg-green-600 w-28 h-10 mt-4 rounded-md font-bold text-white border"
-          @click="addFriend"
-        >
-          {{
-            friendship === true
-              ? "Friends"
-              : friendship === "pending"
-              ? "Pending"
-              : "Add Friend"
-          }}
-        </button>
+        <div>
+          <button
+            class="bg-green-600 w-28 h-10 mt-4 rounded-md font-bold text-white border flex items-center justify-center"
+            @click="showDropdown"
+          >
+            <friend-pending v-if="friendship === 'pending'" />
+            <user-icon v-if="friendship === 'friends'" />
+            {{
+              friendship === "friends"
+                ? "Friends"
+                : friendship === "pending"
+                ? "Pending"
+                : "Add Friend"
+            }}
+          </button>
+          <button
+            @click="removeFriend"
+            v-if="showFriendDropdown"
+            class="w-28 h-10 rounded-md font-bold text-white border flex items-center justify-center absolute bg-red-600 text-sm"
+          >
+            <remove-friend v-if="friendship === 'friends'" />
+            {{ friendship === "pending" ? "Cancel" : "Remove" }}
+          </button>
+        </div>
         <button
           class="bg-blue-600 w-28 h-10 mt-4 rounded-md font-bold text-white border"
         >
@@ -32,65 +44,52 @@
         </button>
       </div>
     </div>
-    <ul class="h-2/5 shadow-xl border bg-white text-gray-500">
-      <li class="p-4 border-b flex justify-between">
-        <span class="font-medium text-black">Github</span> Link
-      </li>
-      <li class="p-4 border-b flex justify-between">
-        <span class="font-medium text-black">Twitter</span>Link
-      </li>
-      <li class="p-4 border-b flex justify-between">
-        <span class="font-medium text-black">Instagram</span>Link
-      </li>
-      <li class="p-4 border-b flex justify-between">
-        <span class="font-medium text-black">Facebook</span>Link
-      </li>
-    </ul>
+    <social-links />
   </div>
-  <div class="flex flex-col w-full gap-10 h-fit bg-white shadow-xl">
-    <ul class="w-full h-2/5 text-gray-500">
-      <li class="flex p-4 border-b capitalize">
-        <span class="mr-24 w-36 text-black font-medium">Full Name </span
-        >{{ firstName + " " + lastName }}
-      </li>
-      <li class="flex p-4 border-b">
-        <span class="mr-24 w-36 text-black font-medium"> Email </span>
-        {{ email }}
-      </li>
-      <li class="flex p-4 border-b">
-        <span class="mr-24 w-36 text-black font-medium">Phone </span>{{ phone }}
-      </li>
-      <li class="flex p-4 border-b capitalize">
-        <span class="mr-24 w-36 text-black font-medium">Gender</span>
-        {{ gender }}
-      </li>
-      <li class="flex p-4 border-b">
-        <span class="mr-24 w-36 text-black font-medium">Birth Date</span>
-        {{ birthDate }}
-      </li>
-    </ul>
-  </div>
+  <user-info :user="user" />
 </template>
 <script lang="ts">
+import { User } from "../../types/user";
 import axios from "../../config/axios/index";
+import FriendPending from "../icons/FriendPendingIcon.vue";
+import RemoveFriend from "../icons/RemoveFriendIcon.vue";
+import UserIcon from "../icons/UserIcon.vue";
+import SocialLinks from "./SocialLinks.vue";
+import UserInfo from "./UserInfo.vue";
 export default {
   emits: ["onAddFriend"],
   data() {
     return {
-      firstName: "" as string,
-      lastName: "" as string,
-      email: "" as string,
-      gender: "" as string,
-      birthDate: "" as string,
-      phone: "" as string,
-      friendship: "" as string | boolean,
+      user: {} as User,
+      friendship: "" as string,
+      showFriendDropdown: false as boolean,
     };
   },
+  watch: {
+    friendship() {
+      if (!this.friendship) {
+        this.showFriendDropdown = false;
+      }
+    },
+  },
   methods: {
+    showDropdown() {
+      if (this.friendship) {
+        this.showFriendDropdown = !this.showFriendDropdown;
+      } else {
+        this.addFriend();
+      }
+    },
     addFriend() {
       axios.post("/friend-request", { friend_id: this.id }).then((res) => {
         console.log(res.data);
         this.friendship = "pending";
+      });
+    },
+    removeFriend() {
+      axios.post("/remove-friend", { friend_id: this.id }).then((res) => {
+        console.log(res.data);
+        this.friendship = "";
       });
     },
   },
@@ -102,14 +101,15 @@ export default {
   },
   beforeMount() {
     axios.get(`users/${this.id}`).then((res) => {
-      this.firstName = res.data.user.first_name;
-      this.lastName = res.data.user.last_name;
-      this.email = res.data.user.email;
-      this.phone = res.data.user.phone;
-      this.birthDate = res.data.user.birth_date;
-      this.gender = res.data.user.gender;
-      this.friendship = res.data.friend;
+      this.user = res.data.user;
     });
+  },
+  components: {
+    FriendPending,
+    RemoveFriend,
+    UserIcon,
+    SocialLinks,
+    UserInfo,
   },
 };
 </script>
