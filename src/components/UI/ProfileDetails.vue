@@ -18,13 +18,16 @@
             class="bg-green-600 w-28 h-10 mt-4 rounded-md font-bold text-white border flex items-center justify-center"
             @click="showDropdown"
           >
-            <friend-pending v-if="friendship === 'pending'" />
-            <user-icon v-if="friendship === 'friends'" />
+            <friend-pending-icon v-if="friend === 'pending'" />
+            <user-icon v-if="friend === 'friends'" />
+            <add-friend-icon v-if="friend === 'incoming'" />
             {{
-              friendship === "friends"
+              friend === "friends"
                 ? "Friends"
-                : friendship === "pending"
+                : friend === "pending"
                 ? "Pending"
+                : friend === "incoming"
+                ? "Accept"
                 : "Add Friend"
             }}
           </button>
@@ -33,8 +36,8 @@
             v-if="showFriendDropdown"
             class="w-28 h-10 rounded-md font-bold text-white border flex items-center justify-center absolute bg-red-600 text-sm"
           >
-            <remove-friend v-if="friendship === 'friends'" />
-            {{ friendship === "pending" ? "Cancel" : "Remove" }}
+            <remove-friend-icon v-if="friend === 'friends'" />
+            {{ friend === "pending" ? "Cancel" : "Remove" }}
           </button>
         </div>
         <button
@@ -51,45 +54,55 @@
 <script lang="ts">
 import { User } from "../../types/user";
 import axios from "../../config/axios/index";
-import FriendPending from "../icons/FriendPendingIcon.vue";
-import RemoveFriend from "../icons/RemoveFriendIcon.vue";
+import FriendPendingIcon from "../icons/FriendPendingIcon.vue";
+import RemoveFriendIcon from "../icons/RemoveFriendIcon.vue";
 import UserIcon from "../icons/UserIcon.vue";
 import SocialLinks from "./SocialLinks.vue";
 import UserInfo from "./UserInfo.vue";
+import AddFriendIcon from "../icons/AddFriendicon.vue";
 export default {
   emits: ["onAddFriend"],
   data() {
     return {
       user: {} as User,
-      friendship: "" as string,
+      friend: "" as string,
       showFriendDropdown: false as boolean,
     };
   },
   watch: {
-    friendship() {
-      if (!this.friendship) {
+    friend() {
+      if (!this.friend) {
         this.showFriendDropdown = false;
       }
     },
   },
   methods: {
     showDropdown() {
-      if (this.friendship) {
+      if (this.friend && this.friend !== "incoming") {
         this.showFriendDropdown = !this.showFriendDropdown;
       } else {
         this.addFriend();
       }
     },
     addFriend() {
-      axios.post("/friend-request", { friend_id: this.id }).then((res) => {
-        console.log(res.data);
-        this.friendship = "pending";
-      });
+      if (this.friend === "incoming") {
+        this.acceptFriend();
+      } else {
+        axios.post("/friend-request", { friend_id: this.id }).then((res) => {
+          console.log(res.data);
+          this.friend = "pending";
+        });
+      }
     },
     removeFriend() {
       axios.post("/remove-friend", { friend_id: this.id }).then((res) => {
         console.log(res.data);
-        this.friendship = "";
+        this.friend = "";
+      });
+    },
+    acceptFriend() {
+      axios.post("/accept-friend", { user_id: this.id }).then((res) => {
+        this.friend = "friends";
       });
     },
   },
@@ -102,14 +115,16 @@ export default {
   beforeMount() {
     axios.get(`users/${this.id}`).then((res) => {
       this.user = res.data.user;
+      this.friend = res.data.friend;
     });
   },
   components: {
-    FriendPending,
-    RemoveFriend,
+    FriendPendingIcon,
+    RemoveFriendIcon,
     UserIcon,
     SocialLinks,
     UserInfo,
+    AddFriendIcon,
   },
 };
 </script>
