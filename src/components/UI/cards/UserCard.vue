@@ -6,7 +6,7 @@
     <img
       src="https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
       alt="user profile picture"
-      class="rounded-xl w-48 h-48"
+      class="rounded-xl w-full h-full"
     />
     <p class="font-medium w-full">{{ first_name + " " + last_name }}</p>
   </div>

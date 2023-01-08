@@ -50,7 +50,6 @@
           </div>
         </form-layout>
       </div>
-      <div v-else>profile stuff here</div>
     </section>
     <success-modal
       v-if="emailChanged"

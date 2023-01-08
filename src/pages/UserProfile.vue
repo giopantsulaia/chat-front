@@ -1,7 +1,7 @@
 <template>
   <main class="flex h-screen justify-center">
     <section class="w-3/5 mt-36 flex items-start justify-center h-3/5 gap-10">
-      <profile-details :id="id"></profile-details>
+      <profile-details :id="Number(id)"></profile-details>
     </section>
   </main>
 </template>
@@ -15,7 +15,7 @@ import SuccessModal from "../components/UI/modals/SuccessModal.vue";
 export default {
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

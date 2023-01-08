@@ -9,6 +9,7 @@ export const useUserStore = defineStore("user", {
     birthDate: "" as string,
     gender: "" as string,
     auth_id: 0 as number,
+    friendsAmount: 0 as number,
   }),
   actions: {},
 });
