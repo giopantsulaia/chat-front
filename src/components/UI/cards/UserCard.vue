@@ -4,7 +4,7 @@
     @click="openUserProfile"
   >
     <img
-      src="https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
+      :src="avatar ? back_url + avatar : '/src/assets/avatar.jpg'"
       alt="user profile picture"
       class="rounded-xl w-full h-full"
     />
@@ -45,6 +45,11 @@ export default {
         this.$router.push({ name: "profile" });
       }
     },
+  },
+  data() {
+    return {
+      back_url: import.meta.env.VITE_BACK_BASE_URL,
+    };
   },
 };
 </script>

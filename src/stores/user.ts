@@ -10,6 +10,7 @@ export const useUserStore = defineStore("user", {
     gender: "" as string,
     auth_id: 0 as number,
     friendsAmount: 0 as number,
+    avatar: "" as string,
   }),
   actions: {},
 });

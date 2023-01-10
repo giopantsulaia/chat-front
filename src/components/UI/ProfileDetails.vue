@@ -5,7 +5,7 @@
         class="flex flex-col items-center bg-white shadow-xl rounded-lg border py-6"
       >
         <img
-          src="https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
+          :src="user.avatar ? back_url + user.avatar : '/src/assets/avatar.jpg'"
           alt="user profile picture"
           class="w-56 border-2 rounded-full select-none"
         />
@@ -71,6 +71,7 @@ export default {
       showFriendDropdown: false as boolean,
       friendsCount: 0 as number,
       friends: [] as Array<User>,
+      back_url: import.meta.env.VITE_BACK_BASE_URL,
     };
   },
   watch: {

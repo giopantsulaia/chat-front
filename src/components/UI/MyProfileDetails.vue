@@ -5,9 +5,9 @@
         class="flex flex-col items-center bg-white shadow-xl rounded-lg border py-6"
       >
         <img
-          src="https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
+          :src="avatar ? back_url + avatar : 'src/assets/avatar.jpg'"
           alt="user profile picture"
-          class="w-56 border-2 rounded-full select-none"
+          class="w-56 border-2 rounded-full select-none h-56"
         />
         <p class="text-2xl capitalize mt-4 font-semibold">
           {{ firstName + " " + lastName }}
@@ -57,6 +57,7 @@
           :id="friend.id"
           :firstName="friend.first_name"
           :lastName="friend.last_name"
+          :avatar="friend.avatar"
         />
       </div>
     </div>
@@ -80,6 +81,7 @@ export default {
       "phone",
       "friendsAmount",
       "auth_id",
+      "avatar",
     ]),
   },
   components: {
@@ -89,6 +91,7 @@ export default {
   data() {
     return {
       friends: [] as Array<User>,
+      back_url: import.meta.env.VITE_BACK_BASE_URL,
     };
   },
 

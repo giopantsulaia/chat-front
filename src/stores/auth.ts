@@ -37,6 +37,7 @@ export const useAuthStore = defineStore("auth", {
           userStore.gender = res.data.user.gender;
           userStore.auth_id = res.data.user.id;
           userStore.friendsAmount = res.data.user.number_of_friends;
+          userStore.avatar = res.data.user.avatar;
         })
         .catch(() => {
           this.authenticated = false;

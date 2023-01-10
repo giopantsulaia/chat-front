@@ -19,11 +19,30 @@
       >
         <div class="text-center flex flex-col items-center">
           <img
-            src="https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
+            :src="
+              file_url
+                ? file_url
+                : avatar
+                ? back_url + avatar
+                : 'src/assets/avatar.jpg'
+            "
             alt="user profile picture"
-            class="w-56 border-2 rounded-full select-none mt-10"
+            class="w-56 border-2 rounded-full select-none mt-10 h-56"
           />
-          <button class="font-medium mt-4">Upload Photo</button>
+          <label class="font-medium mt-4">
+            <input
+              type="file"
+              class="hidden"
+              @change="handleImageUpload"
+            />Upload Photo
+          </label>
+          <button
+            @click="updateAvatar"
+            class="bg-blue-600 rounded-lg text-white p-2 my-2"
+            v-if="image"
+          >
+            Confirm
+          </button>
           <button
             class="bg-green-600 w-28 h-10 mt-10 rounded-md font-bold text-white border"
             @click="editProfile"
@@ -80,9 +99,15 @@ import MyProfileDetails from "../components/UI/MyProfileDetails.vue";
 import SuccessModal from "../components/UI/modals/SuccessModal.vue";
 export default {
   computed: {
-    ...mapState(useUserStore, ["firstName", "lastName", "email"]),
+    ...mapState(useUserStore, ["firstName", "lastName", "email", "avatar"]),
     inSettings(): boolean {
       return this.$route.query.tab === "settings";
+    },
+    imageValid() {
+      if (this.image) {
+        return this.image.type.slice(0, 5) === "image";
+      }
+      return true;
     },
   },
   data() {
@@ -91,9 +116,16 @@ export default {
       emailUpdated: false as boolean,
       profileUpdated: false as boolean,
       emailExists: false as boolean,
+      file_url: "" as string,
+      image: null as any,
+      back_url: import.meta.env.VITE_BACK_BASE_URL,
     };
   },
   methods: {
+    handleImageUpload(e) {
+      this.image = e.target.files[0];
+      this.file_url = URL.createObjectURL(this.image);
+    },
     closeModal() {
       this.emailChanged = false;
       this.emailUpdated = false;
@@ -103,6 +135,25 @@ export default {
         this.$router.push({ name: "profile", query: { tab: "settings" } });
       } else {
         this.$router.replace({ name: "profile" });
+      }
+    },
+    updateAvatar() {
+      if (this.imageValid) {
+        let data = new FormData();
+        data.append("avatar", this.image);
+        data.append("_method", "put");
+        axios
+          .post("user", data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(() => {
+            this.image = null;
+            this.profileUpdated = true;
+            const authStore = useAuthStore();
+            authStore.getUserData();
+          });
       }
     },
     submitUpdate(values: User) {

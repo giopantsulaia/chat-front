@@ -5,7 +5,7 @@
       @click="goToUser"
     >
       <img
-        src="https://t3.ftcdn.net/jpg/03/39/45/96/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
+        :src="avatar ? back_url + avatar : '/src/assets/avatar.jpg'"
         alt="profile picture"
         class="w-16 rounded-full border"
       />
@@ -48,6 +48,11 @@ export default {
         this.$router.push({ name: "user-profile", params: { id: this.id } });
       }
     },
+  },
+  data() {
+    return {
+      back_url: import.meta.env.VITE_BACK_BASE_URL,
+    };
   },
 };
 </script>

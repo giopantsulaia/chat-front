@@ -6,4 +6,5 @@ export interface User {
   birth_date?: string;
   gender?: string;
   id: number;
+  avatar?: string;
 }

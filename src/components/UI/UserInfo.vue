@@ -32,6 +32,7 @@
         :id="friend.id"
         :firstName="friend.first_name"
         :lastName="friend.last_name"
+        :avatar="friend.avatar"
       />
     </div>
   </div>
