@@ -37,6 +37,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      back_url: import.meta.env.VITE_BACK_BASE_URL,
+    };
+  },
   computed: {
     ...mapState(useUserStore, ["auth_id"]),
   },
@@ -48,11 +53,6 @@ export default {
         this.$router.push({ name: "user-profile", params: { id: this.id } });
       }
     },
-  },
-  data() {
-    return {
-      back_url: import.meta.env.VITE_BACK_BASE_URL,
-    };
   },
 };
 </script>

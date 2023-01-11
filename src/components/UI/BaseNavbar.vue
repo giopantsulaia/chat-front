@@ -23,9 +23,9 @@
         Contact
       </button>
       <p class="font-black pl-8 text-lg cursor-default">
-        {{ firstName.charAt(0).toUpperCase() }}
+        {{ formattedFirstName }}
         <span class="font-thin">|</span>
-        {{ lastName.charAt(0).toUpperCase() }}
+        {{ formattedLastName }}
       </p>
       <button
         class="text-red-600 font-semibold px-4 h-16 text-center hover:bg-slate-200 ml-16"
@@ -43,12 +43,18 @@ import { useUserStore } from "@/stores/user.js";
 import { useAuthStore } from "@/stores/auth.js";
 import ProfileIcon from "@/components/icons/ProfileIcon.vue";
 export default {
+  components: {
+    ProfileIcon,
+  },
   computed: {
     ...mapState(useUserStore, ["firstName", "lastName"]),
     ...mapState(useAuthStore, ["authenticated"]),
-  },
-  components: {
-    ProfileIcon,
+    formattedFirstName() {
+      return this.firstName.charAt(0).toUpperCase();
+    },
+    formattedLastName() {
+      return this.lastName.charAt(0).toUpperCase();
+    },
   },
   methods: {
     ...mapActions(useAuthStore, ["logout"]),

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-full">
     <label :for="name" class="mt-4 font-medium" v-if="label"
-      >{{ name.charAt(0).toUpperCase() + name.slice(1).split("_").join(" ") }}
+      >{{ formattedName }}
       <span class="text-red-600 text-sm">{{
         rules && rules.substring(0, 8) === "required" ? "*" : ""
       }}</span></label
@@ -12,7 +12,7 @@
       :name="name"
       :rules="rules"
       class="outline-none border-b-2 border-gray-400 border-opacity-50 my-1 bg-white rounded p-3"
-      :class="{ 'mt-6': !label }"
+      :class="{ 'mt-6': !label, 'bg-gray-100': disabled }"
       :placeholder="placeholder"
       :disabled="disabled"
       @input="$emit('update:modelValue', $event.target.value)"
@@ -24,6 +24,10 @@
 <script lang="ts">
 import { Field, ErrorMessage } from "vee-validate";
 export default {
+  components: {
+    Field,
+    ErrorMessage,
+  },
   props: {
     name: {
       type: String,
@@ -54,10 +58,13 @@ export default {
       required: false,
     },
   },
-
-  components: {
-    Field,
-    ErrorMessage,
+  computed: {
+    formattedName() {
+      return (
+        this.name.charAt(0).toUpperCase() +
+        this.name.slice(1).split("_").join(" ")
+      );
+    },
   },
 };
 </script>

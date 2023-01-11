@@ -13,14 +13,14 @@
 import BaseInput from "@/components/inputs/BaseInput.vue";
 import { Options } from "@/types/options.js";
 export default {
+  components: {
+    BaseInput,
+  },
   props: {
     options: {
       type: Array<Options>,
       required: true,
     },
-  },
-  components: {
-    BaseInput,
   },
 };
 </script>

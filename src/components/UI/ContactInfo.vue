@@ -44,12 +44,17 @@ export default {
     InputLayout,
     SaveIcon,
   },
+  props: {
+    emailExists: {
+      type: Boolean,
+      required: false,
+    },
+  },
   data() {
     return {
       show: ["email", "phone"],
     };
   },
-
   computed: {
     ...mapState(useUserStore, ["email", "phone"]),
   },
@@ -62,12 +67,6 @@ export default {
       } else {
         this.show.push(name);
       }
-    },
-  },
-  props: {
-    emailExists: {
-      type: Boolean,
-      required: false,
     },
   },
 };

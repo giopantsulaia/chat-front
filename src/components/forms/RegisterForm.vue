@@ -58,6 +58,12 @@ import SuccessModal from "@/components/UI/modals/SuccessModal.vue";
 import BaseLoader from "@/components//UI/BaseLoader.vue";
 import { Options } from "@/types/options";
 export default {
+  components: {
+    FormLayout,
+    InputGroup,
+    SuccessModal,
+    BaseLoader,
+  },
   data() {
     return {
       registered: false,
@@ -118,12 +124,6 @@ export default {
       this.registered = false;
       this.$router.push({ name: "login" });
     },
-  },
-  components: {
-    FormLayout,
-    InputGroup,
-    SuccessModal,
-    BaseLoader,
   },
 };
 </script>

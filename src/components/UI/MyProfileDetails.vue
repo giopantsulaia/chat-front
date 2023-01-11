@@ -71,6 +71,10 @@ import FriendCard from "./cards/FriendCard.vue";
 import { User } from "@/types/user";
 import axios from "@/config/axios/index";
 export default {
+  components: {
+    SocialInfo,
+    FriendCard,
+  },
   computed: {
     ...mapState(useUserStore, [
       "firstName",
@@ -83,10 +87,6 @@ export default {
       "auth_id",
       "avatar",
     ]),
-  },
-  components: {
-    SocialInfo,
-    FriendCard,
   },
   data() {
     return {

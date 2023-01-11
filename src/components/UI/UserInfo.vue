@@ -40,6 +40,9 @@
 <script lang="ts">
 import FriendCard from "./cards/FriendCard.vue";
 export default {
+  components: {
+    FriendCard,
+  },
   props: {
     user: {
       type: Object,
@@ -49,9 +52,6 @@ export default {
       type: Object,
       required: false,
     },
-  },
-  components: {
-    FriendCard,
   },
 };
 </script>

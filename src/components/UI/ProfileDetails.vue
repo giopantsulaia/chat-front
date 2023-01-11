@@ -63,6 +63,20 @@ import SocialInfo from "./SocialInfo.vue";
 import UserInfo from "./UserInfo.vue";
 import AddFriendIcon from "@/components/icons/AddFriendicon.vue";
 export default {
+  components: {
+    FriendPendingIcon,
+    RemoveFriendIcon,
+    UserIcon,
+    SocialInfo,
+    UserInfo,
+    AddFriendIcon,
+  },
+  props: {
+    id: {
+      type: Number,
+      required: true,
+    },
+  },
   emits: ["onAddFriend"],
   data() {
     return {
@@ -128,22 +142,8 @@ export default {
       });
     },
   },
-  props: {
-    id: {
-      type: Number,
-      required: true,
-    },
-  },
   beforeMount() {
     this.fetchUser();
-  },
-  components: {
-    FriendPendingIcon,
-    RemoveFriendIcon,
-    UserIcon,
-    SocialInfo,
-    UserInfo,
-    AddFriendIcon,
   },
 };
 </script>

@@ -16,9 +16,6 @@ import { useUserStore } from "@/stores/user";
 import { mapState } from "pinia";
 
 export default {
-  computed: {
-    ...mapState(useUserStore, ["auth_id"]),
-  },
   props: {
     id: {
       type: Number,
@@ -37,6 +34,14 @@ export default {
       required: false,
     },
   },
+  data() {
+    return {
+      back_url: import.meta.env.VITE_BACK_BASE_URL,
+    };
+  },
+  computed: {
+    ...mapState(useUserStore, ["auth_id"]),
+  },
   methods: {
     openUserProfile() {
       if (this.auth_id !== this.id) {
@@ -45,11 +50,6 @@ export default {
         this.$router.push({ name: "profile" });
       }
     },
-  },
-  data() {
-    return {
-      back_url: import.meta.env.VITE_BACK_BASE_URL,
-    };
   },
 };
 </script>

@@ -19,7 +19,6 @@
 <script lang="ts">
 import SuccessCheck from "@/components/icons/SuccessCheck.vue";
 export default {
-  emits: ["onClose"],
   components: {
     SuccessCheck,
   },
@@ -33,5 +32,6 @@ export default {
       required: true,
     },
   },
+  emits: ["onClose"],
 };
 </script>

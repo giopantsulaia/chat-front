@@ -29,7 +29,7 @@
             alt="user profile picture"
             class="w-56 border-2 rounded-full select-none mt-10 h-56"
           />
-          <label class="font-medium mt-4">
+          <label class="font-medium mt-4 cursor-pointer">
             <input
               type="file"
               class="hidden"
@@ -98,6 +98,14 @@ import { User } from "@/types/user";
 import MyProfileDetails from "@/components/UI/MyProfileDetails.vue";
 import SuccessModal from "@/components/UI/modals/SuccessModal.vue";
 export default {
+  components: {
+    GeneralInfo,
+    ContactInfo,
+    BaseInput,
+    FormLayout,
+    SuccessModal,
+    MyProfileDetails,
+  },
   computed: {
     ...mapState(useUserStore, ["firstName", "lastName", "email", "avatar"]),
     inSettings(): boolean {
@@ -190,14 +198,6 @@ export default {
       this.emailUpdated = true;
       this.$router.replace({ query: { tab: "settings" } });
     }
-  },
-  components: {
-    GeneralInfo,
-    ContactInfo,
-    BaseInput,
-    FormLayout,
-    SuccessModal,
-    MyProfileDetails,
   },
 };
 </script>

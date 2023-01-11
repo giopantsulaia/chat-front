@@ -13,12 +13,6 @@ import FormLayout from "@/components/layouts/FormLayout.vue";
 import ProfileDetails from "@/components/UI/ProfileDetails.vue";
 import SuccessModal from "@/components/UI/modals/SuccessModal.vue";
 export default {
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-  },
   components: {
     GeneralInfo,
     ContactInfo,
@@ -26,6 +20,12 @@ export default {
     FormLayout,
     SuccessModal,
     ProfileDetails,
+  },
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>

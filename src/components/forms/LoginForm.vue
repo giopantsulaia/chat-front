@@ -39,6 +39,10 @@ import axios from "@/config/axios";
 import { useAuthStore } from "@/stores/auth.js";
 import { Options } from "@/types/options.js";
 export default {
+  components: {
+    FormLayout,
+    InputGroup,
+  },
   data() {
     return {
       error: "",
@@ -56,6 +60,11 @@ export default {
         },
       ] as Array<Options>,
     };
+  },
+  mounted() {
+    window.addEventListener("access_token_set", () => {
+      this.$router.push({ name: "home" });
+    });
   },
   methods: {
     submitForm(values: object) {
@@ -87,15 +96,6 @@ export default {
         })
       );
     },
-  },
-  mounted() {
-    window.addEventListener("access_token_set", () => {
-      this.$router.push({ name: "home" });
-    });
-  },
-  components: {
-    FormLayout,
-    InputGroup,
   },
 };
 </script>
