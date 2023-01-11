@@ -33,10 +33,10 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { User } from "../types/user";
+import { User } from "@/types/user";
 import { Field, Form } from "vee-validate";
-import axios from "../config/axios/index.js";
-import UserCard from "../components/UI/cards/UserCard.vue";
+import axios from "@/config/axios/index.js";
+import UserCard from "@/components/UI/cards/UserCard.vue";
 const searchKeyword = ref("" as string);
 const searchedUsers = ref([] as Array<User>);
 

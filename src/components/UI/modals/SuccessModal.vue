@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-import SuccessCheck from "../../icons/SuccessCheck.vue";
+import SuccessCheck from "@/components/icons/SuccessCheck.vue";
 export default {
   emits: ["onClose"],
   components: {

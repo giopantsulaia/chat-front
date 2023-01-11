@@ -6,12 +6,12 @@
   </main>
 </template>
 <script lang="ts">
-import GeneralInfo from "../components/UI/GeneralInfo.vue";
-import ContactInfo from "../components/UI/ContactInfo.vue";
-import BaseInput from "../components/inputs/BaseInput.vue";
-import FormLayout from "../components/layouts/FormLayout.vue";
-import ProfileDetails from "../components/UI/ProfileDetails.vue";
-import SuccessModal from "../components/UI/modals/SuccessModal.vue";
+import GeneralInfo from "@/components/UI/GeneralInfo.vue";
+import ContactInfo from "@/components/UI/ContactInfo.vue";
+import BaseInput from "@/components/inputs/BaseInput.vue";
+import FormLayout from "@/components/layouts/FormLayout.vue";
+import ProfileDetails from "@/components/UI/ProfileDetails.vue";
+import SuccessModal from "@/components/UI/modals/SuccessModal.vue";
 export default {
   props: {
     id: {

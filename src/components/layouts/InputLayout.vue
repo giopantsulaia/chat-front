@@ -12,7 +12,7 @@
   </div>
 </template>
 <script lang="ts">
-import EditIcon from "../icons/EditIcon.vue";
+import EditIcon from "@/components/icons/EditIcon.vue";
 export default {
   components: {
     EditIcon,

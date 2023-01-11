@@ -51,12 +51,12 @@
   </section>
 </template>
 <script lang="ts">
-import FormLayout from "../layouts/FormLayout.vue";
-import InputGroup from "../inputs/InputGroup.vue";
-import axios from "../../config/axios";
-import SuccessModal from "../UI/modals/SuccessModal.vue";
-import BaseLoader from "../UI/BaseLoader.vue";
-import { Options } from "../../types/options";
+import FormLayout from "@/components/layouts/FormLayout.vue";
+import InputGroup from "@/components/inputs/InputGroup.vue";
+import axios from "@/config/axios";
+import SuccessModal from "@/components/UI/modals/SuccessModal.vue";
+import BaseLoader from "@/components//UI/BaseLoader.vue";
+import { Options } from "@/types/options";
 export default {
   data() {
     return {

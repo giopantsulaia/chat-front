@@ -39,9 +39,9 @@
 </template>
 <script lang="ts">
 import { mapActions, mapState } from "pinia";
-import { useUserStore } from "../../stores/user.js";
-import { useAuthStore } from "../../stores/auth.js";
-import ProfileIcon from "../icons/ProfileIcon.vue";
+import { useUserStore } from "@/stores/user.js";
+import { useAuthStore } from "@/stores/auth.js";
+import ProfileIcon from "@/components/icons/ProfileIcon.vue";
 export default {
   computed: {
     ...mapState(useUserStore, ["firstName", "lastName"]),

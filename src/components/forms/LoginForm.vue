@@ -33,11 +33,11 @@
   </section>
 </template>
 <script lang="ts">
-import FormLayout from "../layouts/FormLayout.vue";
-import InputGroup from "../inputs/InputGroup.vue";
-import axios from "../../config/axios";
-import { useAuthStore } from "../../stores/auth.js";
-import { Options } from "../../types/options.js";
+import FormLayout from "@/components/layouts/FormLayout.vue";
+import InputGroup from "@/components/inputs/InputGroup.vue";
+import axios from "@/config/axios";
+import { useAuthStore } from "@/stores/auth.js";
+import { Options } from "@/types/options.js";
 export default {
   data() {
     return {

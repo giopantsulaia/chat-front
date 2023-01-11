@@ -54,14 +54,14 @@
   </div>
 </template>
 <script lang="ts">
-import { User } from "../../types/user";
-import axios from "../../config/axios/index";
-import FriendPendingIcon from "../icons/FriendPendingIcon.vue";
-import RemoveFriendIcon from "../icons/RemoveFriendIcon.vue";
-import UserIcon from "../icons/UserIcon.vue";
+import { User } from "@/types/user";
+import axios from "@/config/axios/index";
+import FriendPendingIcon from "@/components/icons/FriendPendingIcon.vue";
+import RemoveFriendIcon from "@/components/icons/RemoveFriendIcon.vue";
+import UserIcon from "@/components/icons/UserIcon.vue";
 import SocialInfo from "./SocialInfo.vue";
 import UserInfo from "./UserInfo.vue";
-import AddFriendIcon from "../icons/AddFriendicon.vue";
+import AddFriendIcon from "@/components/icons/AddFriendicon.vue";
 export default {
   emits: ["onAddFriend"],
   data() {

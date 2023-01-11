@@ -10,8 +10,8 @@
   ></BaseInput>
 </template>
 <script lang="ts">
-import BaseInput from "./BaseInput.vue";
-import { Options } from "../../types/options.js";
+import BaseInput from "@/components/inputs/BaseInput.vue";
+import { Options } from "@/types/options.js";
 export default {
   props: {
     options: {

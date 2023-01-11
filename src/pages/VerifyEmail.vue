@@ -2,8 +2,8 @@
   <div>Verifying Email...</div>
 </template>
 <script lang="ts">
-import axios from "../config/axios/index.js";
-import { useAuthStore } from "../stores/auth";
+import axios from "@/config/axios/index.js";
+import { useAuthStore } from "@/stores/auth";
 export default {
   mounted() {
     if (this.$route.query.hash && this.$route.query.hash.length < 30) {

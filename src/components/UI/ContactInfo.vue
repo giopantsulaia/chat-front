@@ -31,11 +31,11 @@
   </div>
 </template>
 <script lang="ts">
-import FormLayout from "../layouts/FormLayout.vue";
-import BaseInput from "../inputs/BaseInput.vue";
-import { useUserStore } from "../../stores/user";
-import SaveIcon from "../icons/SaveIcon.vue";
-import InputLayout from "../layouts/InputLayout.vue";
+import FormLayout from "@/components/layouts/FormLayout.vue";
+import BaseInput from "@/components/inputs/BaseInput.vue";
+import { useUserStore } from "@/stores/user";
+import SaveIcon from "@/components/icons/SaveIcon.vue";
+import InputLayout from "@/components/layouts/InputLayout.vue";
 import { mapState } from "pinia";
 export default {
   components: {

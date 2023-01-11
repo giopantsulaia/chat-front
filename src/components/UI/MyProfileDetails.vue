@@ -65,11 +65,11 @@
 </template>
 <script lang="ts">
 import { mapState } from "pinia";
-import { useUserStore } from "../../stores/user";
+import { useUserStore } from "@/stores/user";
 import SocialInfo from "./SocialInfo.vue";
 import FriendCard from "./cards/FriendCard.vue";
-import { User } from "../../types/user";
-import axios from "../../config/axios/index";
+import { User } from "@/types/user";
+import axios from "@/config/axios/index";
 export default {
   computed: {
     ...mapState(useUserStore, [

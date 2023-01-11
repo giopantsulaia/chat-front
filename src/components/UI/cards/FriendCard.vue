@@ -15,7 +15,7 @@
   </div>
 </template>
 <script lang="ts">
-import { useUserStore } from "../../../stores/user";
+import { useUserStore } from "@/stores/user";
 import { mapState } from "pinia";
 
 export default {
