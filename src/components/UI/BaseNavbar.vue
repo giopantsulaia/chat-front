@@ -9,6 +9,7 @@
       Logo
     </h1>
     <div class="flex items-center text-white" v-if="authenticated">
+      <notification-dropdown />
       <button
         class="font-bold flex items-center justify-center capitalize px-8 hover:bg-[#0288a5] h-10 rounded-2xl"
         tabindex="-1"
@@ -42,9 +43,11 @@ import { mapActions, mapState } from "pinia";
 import { useUserStore } from "@/stores/user.js";
 import { useAuthStore } from "@/stores/auth.js";
 import ProfileIcon from "@/components/icons/ProfileIcon.vue";
+import NotificationDropdown from "./NotificationDropdown.vue";
 export default {
   components: {
     ProfileIcon,
+    NotificationDropdown,
   },
   computed: {
     ...mapState(useUserStore, ["firstName", "lastName"]),
