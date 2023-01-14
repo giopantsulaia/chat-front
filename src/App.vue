@@ -12,6 +12,9 @@ export default {
   components: { BaseNavbar },
   computed: {
     ...mapState(useAuthStore, ["authenticated"]),
+    accessToken() {
+      return localStorage.getItem("access_token");
+    },
   },
   methods: {
     ...mapActions(useAuthStore, ["tryLogin"]),
@@ -22,7 +25,7 @@ export default {
       if (store.authenticated) {
         axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${localStorage.getItem("access_token")}`;
+        ] = `Bearer ${this.accessToken}`;
       }
     },
   },
